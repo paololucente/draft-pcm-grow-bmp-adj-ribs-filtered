@@ -1,0 +1,224 @@
+
+
+
+
+Global Routing Operations                                     P. Lucente
+Internet-Draft                                                C. Cardona
+Updates: 7854 (if approved)                                          NTT
+Intended status: Standards Track                           M. Srivastava
+Expires: 10 January 2025                                Juniper Networks
+                                                             9 July 2024
+
+
+         Filtering Adj-Rib-In and Adj-Rib-Out to BMP receivers
+                draft-pcmy-grow-bmp-adj-ribs-filtered-00
+
+Abstract
+
+   Filtering RIBs in BMP (BGP Monitoring Protocol) can be desirable for
+   several use-cases like, for example, limiting the amount of data a
+   collector station has to process or allow a sender to export only a
+   certain afi/safi of interest.  This document defines a light way to
+   inform a collector station that a Adj-Rib-In / Adj-Rib-Out data feed
+   is being filtered.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 10 January 2025.
+
+Copyright Notice
+
+   Copyright (c) 2024 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+
+
+
+
+
+
+
+
+
+Lucente, et al.          Expires 10 January 2025                [Page 1]
+
+Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
+
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   2
+   3.  Filtered RIB Flag . . . . . . . . . . . . . . . . . . . . . .   2
+   4.  Operational Considerations  . . . . . . . . . . . . . . . . .   3
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   3
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   3
+   7.  Normative References  . . . . . . . . . . . . . . . . . . . .   3
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .   4
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   4
+
+1.  Introduction
+
+   While RFC9069 [RFC9069] does define a light way to mark a Loc-Rib as
+   filtered, there is no equivalent mechanism for Adj-Rib-In RFC7854
+   [RFC7854] and Adj-Rib-Out RFC8671 [RFC8671].  This can be easily
+   addressed through the introduction of a Peer F Flag in the "BMP Peer
+   Flags for Peer Types 0 through 2" registry.
+
+2.  Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 RFC 2119 [RFC2119] RFC 8174 [RFC8174] when, and only when, they
+   appear in all capitals, as shown here.
+
+3.  Filtered RIB Flag
+
+   As a recap, a BMP session is regarded as carrying Adj-Rib-In by
+   defining the Peer Type to 0, 1 or 2 values and setting the O flag to
+   zero (0) in the BMP Peer Flags (for Peer Types 0 through 2) registry.
+   Similarly, Adj-Rib-Out is set by defining the Peer Type to 0, 1 or 2
+   values and setting the O flag to one (1) in the BMP Peer Flags (for
+   Peer Types 0 through 2) registry.  Both Adj-Rib-In and Adj-Rib-Out
+   can be further defined as Pre-Policy, setting the Peer L Flag to zero
+   (0), or Post-Policy, setting the Peer L Flag to one (1).
+
+
+
+
+Lucente, et al.          Expires 10 January 2025                [Page 2]
+
+Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
+
+
+   For both Adj-Rib-In and Adj-Rib-Out, for both Pre-Policy and Post-
+   Policy cases, a new Peer F Flag is defined in the "BMP Peer Flags for
+   Peer Types 0 through 2" registry.  If the RIB was filtered, the flag
+   MUST be set to one (1).
+
+4.  Operational Considerations
+
+   It is recommended that when filtering RIBs, the VRF/Table Name TLV -
+   as defined in RFC9069 [RFC9069], TLV support for BMP Route Monitoring
+   and Peer Down Messages [I-D.ietf-grow-bmp-tlv] and BMP Peer Up
+   Namespace [I-D.ietf-grow-bmp-peer-up] - is specified to a meaningful
+   string that can help discriminate the nature of filtering.
+
+5.  Security Considerations
+
+   It is not believed that this document adds any additional security
+   considerations.
+
+6.  IANA Considerations
+
+   This document asks IANA to add a new F Flag to the "BMP Peer Flags
+   for Peer Types 0 through 2" registry.  The recommended value for the
+   registry is 4.
+
+7.  Normative References
+
+   [I-D.ietf-grow-bmp-peer-up]
+              Scudder, J. and P. Lucente, "BMP Peer Up Message
+              Namespace", Work in Progress, Internet-Draft, draft-ietf-
+              grow-bmp-peer-up-04, 11 June 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-grow-
+              bmp-peer-up-04>.
+
+   [I-D.ietf-grow-bmp-tlv]
+              Lucente, P. and Y. Gu, "BMP v4: TLV support for BMP Route
+              Monitoring and Peer Down Messages", Work in Progress,
+              Internet-Draft, draft-ietf-grow-bmp-tlv-14, 18 March 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-grow-
+              bmp-tlv-14>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+
+
+
+Lucente, et al.          Expires 10 January 2025                [Page 3]
+
+Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
+
+
+   [RFC7854]  Scudder, J., Ed., Fernando, R., and S. Stuart, "BGP
+              Monitoring Protocol (BMP)", RFC 7854,
+              DOI 10.17487/RFC7854, June 2016,
+              <https://www.rfc-editor.org/info/rfc7854>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+   [RFC8671]  Evens, T., Bayraktar, S., Lucente, P., Mi, P., and S.
+              Zhuang, "Support for Adj-RIB-Out in the BGP Monitoring
+              Protocol (BMP)", RFC 8671, DOI 10.17487/RFC8671, November
+              2019, <https://www.rfc-editor.org/info/rfc8671>.
+
+   [RFC9069]  Evens, T., Bayraktar, S., Bhardwaj, M., and P. Lucente,
+              "Support for Local RIB in the BGP Monitoring Protocol
+              (BMP)", RFC 9069, DOI 10.17487/RFC9069, February 2022,
+              <https://www.rfc-editor.org/info/rfc9069>.
+
+Acknowledgements
+
+   TBD
+
+Authors' Addresses
+
+   Paolo Lucente
+   NTT
+   Veemweg 23
+   3771 Barneveld
+   Netherlands
+   Email: paolo@ntt.net
+
+
+   Camilo Cardona
+   NTT
+   164-168, Carrer de Numancia
+   08029 Barcelona
+   Spain
+   Email: camilo@ntt.net
+
+
+   Mukul Srivastava
+   Juniper Networks
+   10 Technology Park Dr
+   Westford, MA 01886
+   United States of America
+   Email: msri@juniper.net
+
+
+
+
+Lucente, et al.          Expires 10 January 2025                [Page 4]
