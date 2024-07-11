@@ -6,8 +6,8 @@ Global Routing Operations                                     P. Lucente
 Internet-Draft                                                C. Cardona
 Updates: 7854 (if approved)                                          NTT
 Intended status: Standards Track                           M. Srivastava
-Expires: 10 January 2025                                Juniper Networks
-                                                             9 July 2024
+Expires: 12 January 2025                                Juniper Networks
+                                                            11 July 2024
 
 
          Filtering Adj-Rib-In and Adj-Rib-Out to BMP receivers
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 January 2025.
+   This Internet-Draft will expire on 12 January 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Lucente, et al.          Expires 10 January 2025                [Page 1]
+Lucente, et al.          Expires 12 January 2025                [Page 1]
 
 Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Lucente, et al.          Expires 10 January 2025                [Page 2]
+Lucente, et al.          Expires 12 January 2025                [Page 2]
 
 Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
@@ -118,6 +118,9 @@ Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
    Policy cases, a new Peer F Flag is defined in the "BMP Peer Flags for
    Peer Types 0 through 2" registry.  If the RIB was filtered, the flag
    MUST be set to one (1).
+
+   In Stats messages, counts MUST reflect the filtered RIB numbers and
+   not the original RIB ones.
 
 4.  Operational Considerations
 
@@ -162,10 +165,7 @@ Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
 
 
-
-
-
-Lucente, et al.          Expires 10 January 2025                [Page 3]
+Lucente, et al.          Expires 12 January 2025                [Page 3]
 
 Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
@@ -191,7 +191,7 @@ Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
 Acknowledgements
 
-   TBD
+   The authors would like to thank Jeff Haas for his valuable input.
 
 Authors' Addresses
 
@@ -221,4 +221,4 @@ Authors' Addresses
 
 
 
-Lucente, et al.          Expires 10 January 2025                [Page 4]
+Lucente, et al.          Expires 12 January 2025                [Page 4]
