@@ -6,8 +6,8 @@ Global Routing Operations                                     P. Lucente
 Internet-Draft                                                C. Cardona
 Updates: 7854 (if approved)                                          NTT
 Intended status: Standards Track                           M. Srivastava
-Expires: 12 January 2025                                Juniper Networks
-                                                            11 July 2024
+Expires: 16 January 2025                                Juniper Networks
+                                                            15 July 2024
 
 
          Filtering Adj-Rib-In and Adj-Rib-Out to BMP receivers
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 January 2025.
+   This Internet-Draft will expire on 16 January 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Lucente, et al.          Expires 12 January 2025                [Page 1]
+Lucente, et al.          Expires 16 January 2025                [Page 1]
 
 Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Lucente, et al.          Expires 12 January 2025                [Page 2]
+Lucente, et al.          Expires 16 January 2025                [Page 2]
 
 Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
@@ -127,8 +127,9 @@ Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
    It is recommended that when filtering RIBs, the VRF/Table Name TLV -
    as defined in RFC9069 [RFC9069], TLV support for BMP Route Monitoring
    and Peer Down Messages [I-D.ietf-grow-bmp-tlv] and BMP Peer Up
-   Namespace [I-D.ietf-grow-bmp-peer-up] - is specified to a meaningful
-   string that can help discriminate the nature of filtering.
+   Namespace [I-D.ietf-grow-bmp-peer-up] - is specified in Peer Up
+   messages to a meaningful string that can help discriminate the nature
+   of filtering.
 
 5.  Security Considerations
 
@@ -164,8 +165,7 @@ Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
 
 
-
-Lucente, et al.          Expires 12 January 2025                [Page 3]
+Lucente, et al.          Expires 16 January 2025                [Page 3]
 
 Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
@@ -221,4 +221,4 @@ Authors' Addresses
 
 
 
-Lucente, et al.          Expires 12 January 2025                [Page 4]
+Lucente, et al.          Expires 16 January 2025                [Page 4]

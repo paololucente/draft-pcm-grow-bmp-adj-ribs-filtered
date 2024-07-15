@@ -140,8 +140,8 @@
 		defined in <xref target="RFC9069">RFC9069</xref>, <xref target="I-D.ietf-grow-bmp-tlv">
 		TLV support for BMP Route Monitoring and Peer Down Messages</xref> and
 		<xref target="I-D.ietf-grow-bmp-peer-up">BMP Peer Up Namespace</xref> -
-		is specified to a meaningful string that can help discriminate the nature
-		of filtering.
+		is specified in Peer Up messages to a meaningful string that can help
+		discriminate the nature of filtering. 
             </t>
 
         </section>
