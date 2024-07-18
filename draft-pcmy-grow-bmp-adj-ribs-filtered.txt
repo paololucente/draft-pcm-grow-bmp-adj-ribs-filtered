@@ -6,8 +6,8 @@ Global Routing Operations                                     P. Lucente
 Internet-Draft                                                C. Cardona
 Updates: 7854 (if approved)                                          NTT
 Intended status: Standards Track                           M. Srivastava
-Expires: 16 January 2025                                Juniper Networks
-                                                            15 July 2024
+Expires: 17 January 2025                                Juniper Networks
+                                                            16 July 2024
 
 
          Filtering Adj-Rib-In and Adj-Rib-Out to BMP receivers
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 January 2025.
+   This Internet-Draft will expire on 17 January 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Lucente, et al.          Expires 16 January 2025                [Page 1]
+Lucente, et al.          Expires 17 January 2025                [Page 1]
 
 Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Lucente, et al.          Expires 16 January 2025                [Page 2]
+Lucente, et al.          Expires 17 January 2025                [Page 2]
 
 Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
@@ -127,9 +127,17 @@ Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
    It is recommended that when filtering RIBs, the VRF/Table Name TLV -
    as defined in RFC9069 [RFC9069], TLV support for BMP Route Monitoring
    and Peer Down Messages [I-D.ietf-grow-bmp-tlv] and BMP Peer Up
-   Namespace [I-D.ietf-grow-bmp-peer-up] - is specified in Peer Up
-   messages to a meaningful string that can help discriminate the nature
-   of filtering.
+   Namespace [I-D.ietf-grow-bmp-peer-up] - is specified to a meaningful
+   string that can help discriminate the nature of filtering.
+
+   The VRF/Table Name TLV can be either set in the Peer Up message, so
+   to implicitely apply to all NLRIs received by the peer, or set via a
+   Group TLV in Route Monitoring messages, to esplicitely apply to all
+   NLRIs in the group.  Going down the Peer Up model is certainly
+   optimal on the wire and simplifies packing at the sender side; going
+   down the Route Monitoring model, instead, allows the receiver side to
+   operate non-contextually (ie.  no need to look back at the Peer Up to
+   make due associations).
 
 5.  Security Considerations
 
@@ -154,6 +162,14 @@ Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
    [I-D.ietf-grow-bmp-tlv]
               Lucente, P. and Y. Gu, "BMP v4: TLV support for BMP Route
               Monitoring and Peer Down Messages", Work in Progress,
+
+
+
+Lucente, et al.          Expires 17 January 2025                [Page 3]
+
+Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
+
+
               Internet-Draft, draft-ietf-grow-bmp-tlv-14, 18 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-grow-
               bmp-tlv-14>.
@@ -162,13 +178,6 @@ Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
-
-
-
-Lucente, et al.          Expires 16 January 2025                [Page 3]
-
-Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
-
 
    [RFC7854]  Scudder, J., Ed., Fernando, R., and S. Stuart, "BGP
               Monitoring Protocol (BMP)", RFC 7854,
@@ -211,6 +220,12 @@ Authors' Addresses
    Email: camilo@ntt.net
 
 
+
+Lucente, et al.          Expires 17 January 2025                [Page 4]
+
+Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
+
+
    Mukul Srivastava
    Juniper Networks
    10 Technology Park Dr
@@ -221,4 +236,45 @@ Authors' Addresses
 
 
 
-Lucente, et al.          Expires 16 January 2025                [Page 4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Lucente, et al.          Expires 17 January 2025                [Page 5]
