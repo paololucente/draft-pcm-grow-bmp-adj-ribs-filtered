@@ -6,8 +6,8 @@ Global Routing Operations                                     P. Lucente
 Internet-Draft                                                C. Cardona
 Updates: 7854 (if approved)                                          NTT
 Intended status: Standards Track                           M. Srivastava
-Expires: 17 January 2025                                Juniper Networks
-                                                            16 July 2024
+Expires: 20 January 2025                                Juniper Networks
+                                                            19 July 2024
 
 
          Filtering Adj-Rib-In and Adj-Rib-Out to BMP receivers
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 January 2025.
+   This Internet-Draft will expire on 20 January 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Lucente, et al.          Expires 17 January 2025                [Page 1]
+Lucente, et al.          Expires 20 January 2025                [Page 1]
 
 Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Lucente, et al.          Expires 17 January 2025                [Page 2]
+Lucente, et al.          Expires 20 January 2025                [Page 2]
 
 Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
@@ -121,6 +121,9 @@ Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
    In Stats messages, counts MUST reflect the filtered RIB numbers and
    not the original RIB ones.
+
+   Also should any characteristic of the filtering change, the sender
+   MUST trigger a Peer Down then followed by a new Peer Up.
 
 4.  Operational Considerations
 
@@ -159,17 +162,17 @@ Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
               <https://datatracker.ietf.org/doc/html/draft-ietf-grow-
               bmp-peer-up-04>.
 
-   [I-D.ietf-grow-bmp-tlv]
-              Lucente, P. and Y. Gu, "BMP v4: TLV support for BMP Route
-              Monitoring and Peer Down Messages", Work in Progress,
 
 
 
-Lucente, et al.          Expires 17 January 2025                [Page 3]
+Lucente, et al.          Expires 20 January 2025                [Page 3]
 
 Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
 
+   [I-D.ietf-grow-bmp-tlv]
+              Lucente, P. and Y. Gu, "BMP v4: TLV support for BMP Route
+              Monitoring and Peer Down Messages", Work in Progress,
               Internet-Draft, draft-ietf-grow-bmp-tlv-14, 18 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-grow-
               bmp-tlv-14>.
@@ -212,18 +215,23 @@ Authors' Addresses
    Email: paolo@ntt.net
 
 
+
+
+
+
+
+
+Lucente, et al.          Expires 20 January 2025                [Page 4]
+
+Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
+
+
    Camilo Cardona
    NTT
    164-168, Carrer de Numancia
    08029 Barcelona
    Spain
    Email: camilo@ntt.net
-
-
-
-Lucente, et al.          Expires 17 January 2025                [Page 4]
-
-Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
 
    Mukul Srivastava
@@ -269,12 +277,4 @@ Internet-Draft   Filtering Adj-Rib-In and Adj-Rib-Out to       July 2024
 
 
 
-
-
-
-
-
-
-
-
-Lucente, et al.          Expires 17 January 2025                [Page 5]
+Lucente, et al.          Expires 20 January 2025                [Page 5]

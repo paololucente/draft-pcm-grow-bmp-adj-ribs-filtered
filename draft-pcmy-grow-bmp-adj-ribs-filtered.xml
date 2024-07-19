@@ -132,6 +132,10 @@
 		In Stats messages, counts MUST reflect the filtered RIB numbers and not
 		the original RIB ones. 
 	    </t>
+	    <t>
+		Also should any characteristic of the filtering change, the sender MUST
+		trigger a Peer Down then followed by a new Peer Up.  
+	    </t>
         </section>
 
         <section title="Operational Considerations">
