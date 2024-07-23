@@ -1,7 +1,7 @@
 Filtering Adj-Rib-In and Adj-Rib-Out to BMP receivers
 =====================================================
 
-> ### draft-pcmy-grow-bmp-adj-ribs-filtered
+> ### draft-pcm-grow-bmp-adj-ribs-filtered
 
 - - -
 
@@ -16,7 +16,7 @@ Generating text from xml
 > You'll do this each time you want to generate a text version
 
 ```
-$ xml2rfc draft-pcmy-grow-bmp-adj-ribs-filtered.xml --text
-Parsing file draft-pcmy-grow-bmp-adj-ribs-filtered.xml 
-Created file draft-pcmy-grow-bmp-adj-ribs-filtered.txt
+$ xml2rfc draft-pcm-grow-bmp-adj-ribs-filtered.xml --text
+Parsing file draft-pcm-grow-bmp-adj-ribs-filtered.xml 
+Created file draft-pcm-grow-bmp-adj-ribs-filtered.txt
 ```
