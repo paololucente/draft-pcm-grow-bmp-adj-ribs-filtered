@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+        <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+        <!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
+	<!ENTITY RFC8754 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8754.xml">
+	<!ENTITY RFC8671 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8671.xml">
+	<!ENTITY RFC9069 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.9069.xml">
+	<!ENTITY I-D.ietf-grow-bmp-tlv SYSTEM "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-grow-bmp-tlv.xml">
+	<!ENTITY I-D.ietf-grow-bmp-peer-up SYSTEM "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-grow-bmp-peer-up.xml">
+]>
+
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc strict="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+
+<rfc category="std" docName="draft-pcmy-grow-bmp-adj-ribs-filtered-03"
+     ipr="trust200902" submissionType="IETF"
+     updates="7854">
+
+    <front>
+        <title>
+	    Filtering Adj-Rib-In and Adj-Rib-Out to BMP receivers
+	</title>
+
+        <author fullname="Paolo Lucente" initials="P" surname="Lucente">
+            <organization>NTT</organization>
+            <address>
+                <postal>
+                    <street>Veemweg 23</street>
+                    <city>Barneveld</city>
+                    <code>3771</code>
+                    <region>MT</region>
+                    <country>NL</country>
+                </postal>
+                <email>paolo@ntt.net</email>
+            </address>
+        </author>
+
+	<author fullname="Camilo Cardona" initials="C" surname="Cardona ">
+	  <organization>NTT</organization>
+	    <address>
+	      <postal>
+		<street>164-168, Carrer de Numancia</street>
+		<city>Barcelona</city>
+		<code>08029</code>
+		<country>Spain</country>
+	      </postal>
+              <email>camilo@ntt.net</email>
+	    </address>
+	</author>
+
+    <author fullname="Mukul Srivastava" initials="M."
+            surname="Srivastava">
+      <organization>Juniper Networks</organization>
+      <address>
+        <postal>
+          <street>10 Technology Park Dr</street>
+          <city>Westford</city>
+          <region>MA</region>
+          <code>01886</code>
+          <country>USA</country>
+        </postal>
+        <email>msri@juniper.net</email>
+      </address>
+    </author>
+
+        <date year="2025"/>
+
+        <area>General</area>
+
+        <workgroup>Global Routing Operations</workgroup>
+        <keyword>BMP</keyword>
+
+        <abstract>
+            <t>
+		Filtering RIBs in BMP (BGP Monitoring Protocol) can be desirable
+		for several use-cases like, for example, limiting the amount of
+		data a collector station has to process or allow a sender to export
+		only a certain afi/safi of interest. This document defines a light
+		way to inform a collector station that a Adj-Rib-In / Adj-Rib-Out
+		data feed is being filtered.  
+            </t>
+        </abstract>
+    </front>
+
+    <middle>
+        <section title="Introduction" anchor="Introduction">
+            <t>
+		While <xref target="RFC9069">RFC9069</xref> does define a light
+		way to mark a Loc-Rib as filtered, there is no equivalent mechanism
+		for Adj-Rib-In <xref target="RFC7854">RFC7854</xref> and Adj-Rib-Out
+		<xref target="RFC8671">RFC8671</xref>. This can be easily addressed
+		through the introduction of a Peer F Flag in the "BMP Peer Flags for
+		Peer Types 0 through 2" registry.
+            </t>
+        </section>
+
+        <section title="Terminology">
+            <t>
+		The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+		NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+		"MAY", and "OPTIONAL" in this document are to be interpreted as
+		described in BCP 14 <xref target="RFC2119">RFC 2119</xref>
+		<xref target="RFC8174">RFC 8174</xref> when, and only when, they
+		appear in all capitals, as shown here.
+            </t>
+        </section>
+
+        <section title="Motivation and use Cases">
+            <t>
+	     Marking that the (Adj-RIB-in, Adj-RIB-Out) BMP session is filtered can 
+		 be informative to the rest of the system that they should not make 
+		 decisions assuming that this stream is transmitting all the 
+		 information about it.
+            </t>
+            <t>
+
+		BMP producers (routers) need to send RM updates per peer while meeting several
+		requirements, such as minimizing CPU consumption, avoiding impact on key routing
+		functions, and providing near real-time updates to the collector. As network
+		scale increases, satisfying these requirements becomes increasingly challenging.
+		Therefore, any mechanism that enables data filtering is beneficial.
+
+		On the BMP collector side, excessive data imposes costs on storage and processing.
+		Reducing the volume of data limited to key points of interest (for
+		example, edge peering), can help alleviate these costs.
+     
+			</t>
+        </section>
+	
+        <section title="Filtered RIB Flag">
+            <t>
+		As a recap, a BMP session is regarded as carrying Adj-Rib-In by defining
+		the Peer Type to 0, 1 or 2 values and setting the O flag to zero (0) in
+		the BMP Peer Flags (for Peer Types 0 through 2) registry. Similarly,
+		Adj-Rib-Out is set by defining the Peer Type to 0, 1 or 2 values and
+		setting the O flag to one (1) in the BMP Peer Flags (for Peer Types 0
+		through 2) registry. Both Adj-Rib-In and Adj-Rib-Out can be further
+		defined as Pre-Policy, setting the Peer L Flag to zero (0), or Post-Policy,
+		setting the Peer L Flag to one (1).
+            </t>
+	    <t>
+		For both Adj-Rib-In and Adj-Rib-Out, for both Pre-Policy and Post-Policy
+		cases, a new Peer F Flag is defined in the "BMP Peer Flags for Peer Types
+		0 through 2" registry. If the RIB was filtered, the flag MUST be set to
+		one (1).
+	    </t>
+	    <t>
+		In Stats messages, counts MUST reflect the filtered RIB numbers and not
+		the original RIB ones. 
+	    </t>
+	    <t>
+		Also should any characteristic of the filtering change, the sender MUST
+		trigger a Peer Down then followed by a new Peer Up.  
+	    </t>
+        </section>
+
+        <section title="Operational Considerations">
+            <t>
+		It is recommended that when filtering RIBs, the VRF/Table Name TLV - as
+		defined in <xref target="RFC9069">RFC9069</xref>, <xref target="I-D.ietf-grow-bmp-tlv">
+		TLV support for BMP Route Monitoring and Peer Down Messages</xref> and
+		<xref target="I-D.ietf-grow-bmp-peer-up">BMP Peer Up Namespace</xref> -
+		is specified to a meaningful string that can help discriminate the
+		nature of filtering. 
+            </t>
+            <t>
+		The VRF/Table Name TLV can be either set in the Peer Up message, so to
+		implicitely apply to all NLRIs received by the peer, or set via a Group
+		TLV in Route Monitoring messages, to esplicitely apply to all NLRIs in
+		the group. Going down the Peer Up model is certainly optimal on the wire
+		and simplifies packing at the sender side; going down the Route Monitoring
+		model, instead, allows the receiver side to operate non-contextually (ie.
+		no need to look back at the Peer Up to make due associations). 
+            </t>
+        </section>
+        <section title="Security Considerations">
+            <t>
+		It is not believed that this document adds any additional security
+		considerations.
+            </t>
+        </section>
+
+        <section title="IANA Considerations">
+            <t>
+		This document asks IANA to add a new F Flag to the "BMP Peer Flags for
+		Peer Types 0 through 2" registry. The recommended value for the registry
+		is 4.
+	    </t>
+        </section>
+
+    </middle>
+
+    <back>
+
+        <references title="Normative References">
+		&RFC2119;
+		&RFC8174;
+
+		<?rfc include="reference.RFC.7854.xml"?>
+                <?rfc include="reference.RFC.8671.xml"?>
+                <?rfc include="reference.RFC.9069.xml"?>
+
+		&I-D.ietf-grow-bmp-tlv;
+		&I-D.ietf-grow-bmp-peer-up;
+        </references>
+
+        <section anchor="Acknowledgements" title="Acknowledgements" numbered="no">
+            <t>
+		The authors would like to thank Jeff Haas for his valuable input.
+            </t>
+        </section>
+
+    </back>
+</rfc>
